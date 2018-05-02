@@ -11,7 +11,6 @@ from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
-from django.template import Context
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext, get_language, activate
@@ -243,7 +242,7 @@ def get_formatted_messages(formats, label, context):
             context.autoescape = True
         format_templates[format] = render_to_string((
             "notification/%s/%s" % (label, format),
-            "notification/%s" % format), context_instance=context)
+            "notification/%s" % format), context)
     return format_templates
 
 
@@ -298,13 +297,13 @@ def send_now(users, label, extra_context=None, on_site=True, sender=None):
             activate(language)
         
         # update context with user specific translations
-        context = Context({
+        context = {
             "recipient": user,
             "sender": sender,
             "notice": ugettext(notice_type.display),
             "notices_url": notices_url,
             "current_site": current_site,
-        })
+        }
         context.update(extra_context)
         
         # get prerendered format messages
