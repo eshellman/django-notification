@@ -1,5 +1,5 @@
 from django.core.urlresolvers import reverse
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, Http404
 from django.template import RequestContext
 
@@ -41,9 +41,7 @@ def notices(request):
     """
     notices = Notice.objects.notices_for(request.user, on_site=True)
     
-    return render_to_response("notification/notices.html", {
-        "notices": notices,
-    }, context_instance=RequestContext(request))
+    return render(request, "notification/notices.html", {"notices": notices})
 
 
 @login_required
@@ -94,10 +92,10 @@ def notice_settings(request):
         "rows": settings_table,
     }
     
-    return render_to_response("notification/notice_settings.html", {
+    return render(request, "notification/notice_settings.html", {
         "notice_types": notice_types,
         "notice_settings": notice_settings,
-    }, context_instance=RequestContext(request))
+    })
 
 
 @login_required
@@ -123,9 +121,7 @@ def single(request, id, mark_seen=True):
         if mark_seen and notice.unseen:
             notice.unseen = False
             notice.save()
-        return render_to_response("notification/single.html", {
-            "notice": notice,
-        }, context_instance=RequestContext(request))
+        return render(request, "notification/single.html", {"notice": notice})
     raise Http404
 
 
