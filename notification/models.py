@@ -11,6 +11,7 @@ from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
+from django.template.context import Context
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext, get_language, activate
@@ -237,9 +238,9 @@ def get_formatted_messages(formats, label, context):
     for format in formats:
         # conditionally turn off autoescaping for .txt extensions in format
         if format.endswith(".txt"):
-            context.autoescape = False
+            context = Context(context, autoescape=False)
         else:
-            context.autoescape = True
+            context = Context(context, autoescape=True)
         format_templates[format] = render_to_string((
             "notification/%s/%s" % (label, format),
             "notification/%s" % format), context)
