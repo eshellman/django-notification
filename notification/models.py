@@ -237,12 +237,15 @@ def get_formatted_messages(formats, label, context):
     for format in formats:
         # conditionally turn off autoescaping for .txt extensions in format
         if format.endswith(".txt"):
-            context.autoescape = False
+            format_templates[format] = render_to_string((
+                "notification/%s/%s" % (label, format),
+                "notification/%s" % format)
+            , context, using='text_notification')
         else:
-            context.autoescape = True
-        format_templates[format] = render_to_string((
-            "notification/%s/%s" % (label, format),
-            "notification/%s" % format), context)
+            format_templates[format] = render_to_string((
+                "notification/%s/%s" % (label, format),
+                "notification/%s" % format)
+            , context)
     return format_templates
 
 

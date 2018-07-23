@@ -150,3 +150,20 @@ and then, later::
 
     if notification:
         notification.send([to_user], "friends_invite", {"from_user": from_user})
+        
+Template Engine
+---------------
+
+You need to define a template engine to handle text notifications. For example:
+```
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'APP_DIRS': True,
+        'OPTIONS':{
+            'autoescape' : False,
+        },
+        'NAME': 'text_notification',
+    }
+]
+```
