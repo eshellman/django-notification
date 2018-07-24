@@ -393,7 +393,7 @@ class ObservedItem(models.Model):
     
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
-    observed_object = GenericForeignKey("content_type", on_delete=models.CASCADE, "object_id")
+    observed_object = GenericForeignKey("content_type", "object_id")
     
     notice_type = models.ForeignKey(NoticeType, on_delete=models.CASCADE, verbose_name=_("notice type"))
     
