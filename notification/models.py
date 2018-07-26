@@ -318,14 +318,12 @@ def send_now(users, label, extra_context=None, on_site=True, sender=None):
         # get prerendered format messages
         messages = get_formatted_messages(formats, label, context)
         
+        context['message'] = messages["short.txt"]
+        subject = render_to_string("notification/email_subject.txt", context)
         # Strip newlines from subject
-        subject = "".join(render_to_string("notification/email_subject.txt", {
-            "message": messages["short.txt"],
-        }, context).splitlines())
-        
-        body = render_to_string("notification/email_body.txt", {
-            "message": messages["full.txt"],
-        }, context)
+        subject = "".join(subject.splitlines())
+        context['message'] = messages["full.txt"]
+        body = render_to_string("notification/email_body.txt", context)
         
         notice = Notice.objects.create(recipient=user, message=messages["notice.html"],
             notice_type=notice_type, on_site=on_site, sender=sender)
