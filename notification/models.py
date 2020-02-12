@@ -1,3 +1,5 @@
+from __future__ import print_function
+from six import text_type as unicodestr
 import datetime
 
 try:
@@ -41,7 +43,9 @@ class NoticeType(models.Model):
     
     def __unicode__(self):
         return self.label
-    
+        
+    __str__ = __unicode__
+        
     class Meta:
         verbose_name = _("notice type")
         verbose_name_plural = _("notice types")
@@ -152,6 +156,8 @@ class Notice(models.Model):
     def __unicode__(self):
         return self.message
     
+    __str__ = __unicode__
+    
     def archive(self):
         self.archived = True
         self.save()
@@ -207,11 +213,11 @@ def create_notice_type(label, display, description, default=2, verbosity=1):
         if updated:
             notice_type.save()
             if verbosity > 1:
-                print "Updated %s NoticeType" % label
+                print("Updated %s NoticeType" % label)
     except NoticeType.DoesNotExist:
         NoticeType(label=label, display=display, description=description, default=default).save()
         if verbosity > 1:
-            print "Created %s NoticeType" % label
+            print("Created %s NoticeType" % label)
 
 
 def get_notification_language(user):
@@ -279,7 +285,7 @@ def send_now(users, label, extra_context=None, on_site=True, sender=None):
     
     notices_url = u"%s://%s%s" % (
         protocol,
-        unicode(current_site),
+        unicodestr(current_site),
         reverse("notification_notices"),
     )
     

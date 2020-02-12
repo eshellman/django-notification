@@ -37,7 +37,7 @@ Here is an example::
 
         signals.post_syncdb.connect(create_notice_types, sender=notification)
     else:
-        print "Skipping creation of NoticeTypes as notification app not found"
+        print("Skipping creation of NoticeTypes as notification app not found")
 
 Notice that the code is wrapped in a conditional clause so if
 django-notification is not installed, your app will proceed anyway.

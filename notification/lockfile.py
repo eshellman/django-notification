@@ -11,30 +11,30 @@ Usage:
 >>> try:
 ...     lock.acquire()
 ... except AlreadyLocked:
-...     print 'somefile', 'is locked already.'
+...     print('somefile', 'is locked already.')
 ... except LockFailed:
-...     print 'somefile', 'can\\'t be locked.'
+...     print('somefile', 'can\\'t be locked.')
 ... else:
-...     print 'got lock'
+...     print('got lock')
 got lock
->>> print lock.is_locked()
+>>> print(lock.is_locked())
 True
 >>> lock.release()
 
 >>> lock = FileLock('somefile')
->>> print lock.is_locked()
+>>> print(lock.is_locked())
 False
 >>> with lock:
-...    print lock.is_locked()
+...    print(lock.is_locked())
 True
->>> print lock.is_locked()
+>>> print(lock.is_locked())
 False
 >>> # It is okay to lock twice from the same thread...
 >>> with lock:
 ...     lock.acquire()
 ...
 >>> # Though no counter is kept, so you can't unlock multiple times...
->>> print lock.is_locked()
+>>> print(lock.is_locked())
 False
 
 Exceptions:
@@ -49,6 +49,9 @@ Exceptions:
 """
 
 from __future__ import division
+from __future__ import print_function
+
+from six import text_type as unicodestr
 
 import sys
 import socket
@@ -373,8 +376,8 @@ class SQLiteFileLock(LockBase):
 
     def __init__(self, path, threaded=True):
         LockBase.__init__(self, path, threaded)
-        self.lock_file = unicode(self.lock_file)
-        self.unique_name = unicode(self.unique_name)
+        self.lock_file = unicodestr(self.lock_file)
+        self.unique_name = unicodestr(self.unique_name)
 
         import sqlite3
         self.connection = sqlite3.connect(SQLiteFileLock.testdb)
