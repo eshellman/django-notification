@@ -8,7 +8,7 @@ setup(
     long_description=open("docs/usage.txt").read(),
     author="James Tauber",
     author_email="jtauber@jtauber.com",
-    url="https://github.com/jtauber/django-notification",
+    url="https://github.com/eshellman/django-notification",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 3 - Alpha",
