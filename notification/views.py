@@ -9,9 +9,9 @@ try:
 except ImportError:
 	from django.contrib.syndication.views import Feed as feed
 	
-from notification.models import *
-from notification.decorators import basic_auth_required, simple_basic_auth_callback
-from notification.feeds import NoticeUserFeed
+from .models import *
+from .decorators import basic_auth_required, simple_basic_auth_callback
+from .feeds import NoticeUserFeed
 
 
 @basic_auth_required(realm="Notices Feed", callback_func=simple_basic_auth_callback)

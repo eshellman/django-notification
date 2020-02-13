@@ -13,10 +13,9 @@ from django.core.mail import mail_admins
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 
-from lockfile import FileLock, AlreadyLocked, LockTimeout
-
-from notification.models import NoticeQueueBatch
-from notification import models as notification
+from .lockfile import FileLock, AlreadyLocked, LockTimeout
+from .models import NoticeQueueBatch
+from . import models as notification
 
 # lock timeout value. how long to wait for the lock to become available.
 # default behavior is to never wait for the lock to be available.

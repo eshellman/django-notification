@@ -1,6 +1,6 @@
 from django.conf.urls import url, include
 
-from notification.views import notices, mark_all_seen, feed_for_user, single, notice_settings
+from .views import notices, mark_all_seen, feed_for_user, single, notice_settings
 
 
 urlpatterns = [

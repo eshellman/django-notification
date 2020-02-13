@@ -1,4 +1,4 @@
-from notification.models import Notice
+from .models import Notice
 
 
 def notification(request):
