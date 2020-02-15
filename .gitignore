@@ -1,0 +1,14 @@
+db.*
+*.log
+*.dot
+*.pyc
+reports
+ENV
+.DS_Store
+build
+logs/*
+*.ipynb
+.python-version
+dist/*
+django_notification.egg*
+Pipfile*
