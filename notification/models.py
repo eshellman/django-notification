@@ -189,7 +189,7 @@ class NoticeQueueBatch(models.Model):
     A queued notice.
     Denormalized data for a notice.
     """
-    pickled_data = models.TextField()
+    pickled_data = models.BinaryField()
 
 
 def create_notice_type(label, display, description, default=2, verbosity=1):
@@ -377,7 +377,7 @@ def queue(users, label, extra_context=None, on_site=True, sender=None):
     notices = []
     for user in users:
         notices.append((user, label, extra_context, on_site, sender))
-    NoticeQueueBatch(pickled_data=pickle.dumps(notices).encode("base64")).save()
+    NoticeQueueBatch(pickled_data=pickle.dumps(notices)).save()
 
 
 class ObservedItemManager(models.Manager):

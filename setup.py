@@ -20,5 +20,10 @@ setup(
         "Framework :: Django",
     ],
     include_package_data=True,
+    install_requires=[
+        'django<2',
+        'six'
+    ],
+
     zip_safe=False,
 )

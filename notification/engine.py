@@ -43,7 +43,7 @@ def send_all():
         # nesting the try statement to be Python 2.4
         try:
             for queued_batch in NoticeQueueBatch.objects.all():
-                notices = pickle.loads(str(queued_batch.pickled_data).decode("base64"))
+                notices = pickle.loads(queued_batch.pickled_data)
                 for user, label, extra_context, on_site, sender in notices:
                     try:
                         user = User.objects.get(pk=user)
