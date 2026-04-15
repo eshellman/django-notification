@@ -21,8 +21,7 @@ setup(
     ],
     include_package_data=True,
     install_requires=[
-        'django<3',
-        'six'
+        'django>=3.2',
     ],
 
     zip_safe=False,

@@ -1,5 +1,5 @@
 from __future__ import print_function
-from six import text_type as unicodestr
+unicodestr = str
 import datetime
 
 try:
@@ -18,8 +18,8 @@ from django.template.loader import render_to_string
 from django.template.engine import Engine
 from django.template.exceptions import TemplateDoesNotExist
 
-from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ugettext, get_language, activate
+from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext, get_language, activate
 
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import AnonymousUser
@@ -229,7 +229,8 @@ def get_notification_language(user):
     if getattr(settings, "NOTIFICATION_LANGUAGE_MODULE", False):
         try:
             app_label, model_name = settings.NOTIFICATION_LANGUAGE_MODULE.split(".")
-            model = models.get_model(app_label, model_name)
+            from django.apps import apps
+            model = apps.get_model(app_label, model_name)
             language_model = model._default_manager.get(user__id__exact=user.id)
             if hasattr(language_model, "language"):
                 return language_model.language
@@ -315,7 +316,7 @@ def send_now(users, label, extra_context=None, on_site=True, sender=None):
         context = {
             "recipient": user,
             "sender": sender,
-            "notice": ugettext(notice_type.display),
+            "notice": gettext(notice_type.display),
             "notices_url": notices_url,
             "current_site": current_site,
         }
